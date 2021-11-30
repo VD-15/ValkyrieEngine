@@ -29,7 +29,6 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/deps)
 
 target_link_libraries(valkyrie_engine
 	PUBLIC
-		fmt::fmt
 		Threads::Threads)
 
 if (${CMAKE_PROJECT_NAME} STREQUAL ${PROJECT_NAME})
