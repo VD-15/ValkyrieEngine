@@ -14,6 +14,5 @@ set_target_properties(
 		CXX_STANDARD_REQUIRED TRUE
 )
 
-enable_testing()
 include(CTest)
 catch_discover_tests(valkyrie_engine_tests)

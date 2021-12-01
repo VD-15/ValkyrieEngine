@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.13)
 
 project(valkyrie_engine VERSION 0.1.0)
 
@@ -14,8 +14,8 @@ target_include_directories(valkyrie_engine
 		${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-set_target_properties(
-	valkyrie_engine PROPERTIES
+set_target_properties(valkyrie_engine
+	PROPERTIES
 		SOVERSION ${valkyrie_engine_VERSION_MAJOR}
 		VERSION ${valkyrie_engine_VERSION}
 		CXX_STANDARD 17
@@ -29,12 +29,19 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/deps)
 
 target_link_libraries(valkyrie_engine
 	PUBLIC
-		Threads::Threads)
+		Threads::Threads
+)
 
-if (${CMAKE_PROJECT_NAME} STREQUAL ${PROJECT_NAME})
-	if (BUILD_TESTING)
-		message(STATUS "Building tests for ValkyrieEngine")
-		add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/test)
-		enable_testing()
-	endif()
+option(CODE_COVERAGE "Enable coverage reporting" OFF)
+if(CODE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+	message(STATUS "Generating code coverage for Valkyrie Engine")
+	# Add required coverage flags (GCC & LLVM/Clang only)
+	target_compile_options(valkyrie_engine PUBLIC --coverage)
+	target_link_options(valkyrie_engine PUBLIC --coverage)
+endif(CODE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+
+if (BUILD_TESTING AND ${CMAKE_PROJECT_NAME} STREQUAL ${PROJECT_NAME})
+	message(STATUS "Building tests for ValkyrieEngine")
+	enable_testing()
+	add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/test)
 endif()
