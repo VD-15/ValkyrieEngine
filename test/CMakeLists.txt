@@ -8,6 +8,12 @@ target_link_libraries(valkyrie_engine_tests
 		Catch2::Catch2
 )
 
+set_target_properties(
+	valkyrie_engine_tests PROPERTIES
+		CXX_STANDARD 17
+		CXX_STANDARD_REQUIRED TRUE
+)
+
 enable_testing()
 include(CTest)
 catch_discover_tests(valkyrie_engine_tests)
