@@ -36,7 +36,12 @@ option(CODE_COVERAGE "Enable coverage reporting" OFF)
 if(CODE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
 	message(STATUS "Generating code coverage for Valkyrie Engine")
 	# Add required coverage flags (GCC & LLVM/Clang only)
-	target_compile_options(valkyrie_engine PUBLIC --coverage)
+	target_compile_options(valkyrie_engine
+		PUBLIC 
+			-O0
+			-g
+			--coverage
+	)
 	target_link_options(valkyrie_engine PUBLIC --coverage)
 endif(CODE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
 

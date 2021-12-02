@@ -1,5 +1,7 @@
 add_executable(valkyrie_engine_tests
 	${CMAKE_CURRENT_SOURCE_DIR}/test.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/basic_lockable_000.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/resource_repository_000.cpp
 )
 
 target_link_libraries(valkyrie_engine_tests
